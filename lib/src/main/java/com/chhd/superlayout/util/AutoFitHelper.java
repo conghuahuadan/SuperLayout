@@ -1,4 +1,4 @@
-package com.chhd.superlayout;
+package com.chhd.superlayout.util;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,6 +17,8 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
+
+import com.chhd.superlayout.R;
 
 import java.util.ArrayList;
 

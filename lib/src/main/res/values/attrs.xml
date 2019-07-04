@@ -11,6 +11,7 @@
     <attr name="stroke_width" format="integer|dimension" />
     <attr name="clip_background" format="boolean" />
     <attr name="fill_background_color" format="color|reference" />
+    <attr name="text_size_auto_fix" format="boolean" />
 
     <!--真正用于解析的属性-->
     <declare-styleable name="SuperAttrs">
@@ -77,7 +78,6 @@
         <attr name="stroke_width" />
         <attr name="clip_background" />
         <attr name="fill_background_color" />
-        <attr name="text_size_auto_fix" format="boolean" />
+        <attr name="text_size_auto_fix" />
     </declare-styleable>
-
 </resources>

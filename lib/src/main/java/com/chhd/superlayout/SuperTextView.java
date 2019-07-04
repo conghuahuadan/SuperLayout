@@ -6,11 +6,18 @@ import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
+import com.chhd.superlayout.util.AutoFitHelper;
+import com.chhd.superlayout.util.SuperHelper;
+
+/**
+ * SuperTextView
+ *
+ * @author 陈伟强 (2019/6/26)
+ */
 public class SuperTextView extends android.support.v7.widget.AppCompatTextView {
 
     private SuperHelper mHelper;
-
-    private AutoFitHelper autofitHelper;
+    private AutoFitHelper mAutoFitHelper;
 
     public SuperTextView(Context context) {
         super(context);
@@ -34,8 +41,8 @@ public class SuperTextView extends android.support.v7.widget.AppCompatTextView {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SuperTextView);
         boolean textSizeAutoFix =
                 ta.getBoolean(R.styleable.SuperTextView_text_size_auto_fix, false);
-        autofitHelper = AutoFitHelper.create(this, attrs);
-        autofitHelper.setEnabled(textSizeAutoFix);
+        mAutoFitHelper = AutoFitHelper.create(this, attrs);
+        mAutoFitHelper.setEnabled(textSizeAutoFix);
         ta.recycle();
     }
 

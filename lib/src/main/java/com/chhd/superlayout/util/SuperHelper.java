@@ -1,4 +1,4 @@
-package com.chhd.superlayout;
+package com.chhd.superlayout.util;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -14,6 +14,8 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.chhd.superlayout.R;
 
 /**
  * Super布局帮助类
@@ -97,7 +99,7 @@ public class SuperHelper {
         refreshRegion();
     }
 
-    public void refreshRegion() {
+    private void refreshRegion() {
         int w = (int) mLayer.width();
         int h = (int) mLayer.height();
         RectF areas = new RectF();

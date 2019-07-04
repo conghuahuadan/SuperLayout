@@ -4,6 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 
+import com.chhd.superlayout.util.SuperHelper;
+
+/**
+ * SuperImageView
+ *
+ * @author 陈伟强 (2019/6/26)
+ */
 public class SuperImageView extends android.support.v7.widget.AppCompatImageView {
 
     private SuperHelper mHelper;
