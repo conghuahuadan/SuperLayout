@@ -11,8 +11,15 @@
     <com.chhd.superlayout.SuperImageView
         android:id="@+id/iv"
         android:layout_width="200dp"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
         android:scaleType="centerCrop"
-        app:clip_background="true"
+        app:round_as_circle="true"
         app:round_corner="8dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop" />
 </LinearLayout>

@@ -16,6 +16,8 @@ import com.chhd.superlayout.util.SuperHelper;
  */
 public class SuperTextView extends android.support.v7.widget.AppCompatTextView {
 
+    private static final String TAG = SuperTextView.class.getSimpleName();
+
     private SuperHelper mHelper;
     private AutoFitHelper mAutoFitHelper;
 
@@ -47,29 +49,44 @@ public class SuperTextView extends android.support.v7.widget.AppCompatTextView {
     }
 
     @Override
-    protected void onSizeChanged(int width, int height, int oldw, int oldh) {
-        super.onSizeChanged(width, height, oldw, oldh);
-        mHelper.onSizeChanged(width, height);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        mHelper.onSizeChanged(getMeasuredWidth(), getMeasuredHeight());
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        canvas.saveLayer(mHelper.mLayer, null, Canvas.ALL_SAVE_FLAG);
+        mHelper.onClipDraw(canvas);
+        canvas.restore();
+        super.onDraw(canvas);
     }
 
     @Override
     public void draw(Canvas canvas) {
         if (mHelper.mClipBackground) {
-            canvas.save();
-            canvas.clipPath(mHelper.mClipPath);
+            canvas.saveLayer(mHelper.mLayer, null, Canvas.ALL_SAVE_FLAG);
             super.draw(canvas);
+            mHelper.handleCorner(canvas);
             canvas.restore();
         } else {
             super.draw(canvas);
         }
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.saveLayer(mHelper.mLayer, null, Canvas.ALL_SAVE_FLAG);
-        super.onDraw(canvas);
-        mHelper.onClipDraw(canvas);
-        canvas.restore();
+    public SuperHelper getSuperHelper() {
+        return mHelper;
     }
 
+    public AutoFitHelper getAutoFitHelper() {
+        return mAutoFitHelper;
+    }
+
+    public void setStrokeColor(int color) {
+        mHelper.setStrokeColor(color);
+    }
+
+    public void setFillBackgroundColor(int color) {
+        mHelper.setFillBackgroundColor(color);
+    }
 }

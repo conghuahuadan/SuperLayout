@@ -18,7 +18,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url 'https://dl.bintray.com/conghuahuadan/maven' }
+        maven { url "http://lib.gcssloop.com:8081/repository/gcssloop-central/" }
+
     }
     tasks.withType(Javadoc) {
         options {

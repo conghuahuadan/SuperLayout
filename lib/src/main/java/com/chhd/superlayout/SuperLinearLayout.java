@@ -2,33 +2,32 @@ package com.chhd.superlayout;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.widget.LinearLayout;
 
 import com.chhd.superlayout.util.SuperHelper;
 
 /**
- * SuperImageView
+ * SuperLinearLayout
  *
- * @author 陈伟强 (2019/6/26)
+ * 陈伟强 (2020/4/30)
  */
-public class SuperImageView extends android.support.v7.widget.AppCompatImageView {
-
-    private static final String TAG = SuperImageView.class.getSimpleName();
+public class SuperLinearLayout extends LinearLayout {
 
     private SuperHelper mHelper;
 
-    public SuperImageView(Context context) {
+    public SuperLinearLayout(Context context) {
         super(context);
         init(context, null);
     }
 
-    public SuperImageView(Context context, AttributeSet attrs) {
+    public SuperLinearLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public SuperImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SuperLinearLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -45,10 +44,9 @@ public class SuperImageView extends android.support.v7.widget.AppCompatImageView
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        Log.i(TAG, "onDraw: ");
+    public void dispatchDraw(Canvas canvas) {
         canvas.saveLayer(mHelper.mLayer, null, Canvas.ALL_SAVE_FLAG);
-        super.onDraw(canvas);
+        super.dispatchDraw(canvas);
         mHelper.onClipDraw(canvas);
         canvas.restore();
     }

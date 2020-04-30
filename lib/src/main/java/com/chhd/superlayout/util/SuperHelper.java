@@ -71,9 +71,8 @@ public class SuperHelper {
         if (null != mFillBackgroundColorStateList) {
             mFillBackgroundColor = mFillBackgroundColorStateList.getDefaultColor();
         } else {
-            mFillBackgroundColor = -1;
+            mFillBackgroundColor = 0;
         }
-
         mClipBackground = ta.getBoolean(R.styleable.SuperAttrs_clip_background, false);
 
         ta.recycle();
@@ -92,6 +91,9 @@ public class SuperHelper {
         mPaint = new Paint();
         mPaint.setColor(Color.WHITE);
         mPaint.setAntiAlias(true);
+
+        // 安卓9，使用ObjectAnimator旋转时，因为裁切原因默认四周有少许边框，LAYER_TYPE_HARDWARE：效果最好，LAYER_TYPE_SOFTWARE：一开始锯齿很大
+        mView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
     }
 
     public void onSizeChanged(int w, int h) {
@@ -102,16 +104,12 @@ public class SuperHelper {
     private void refreshRegion() {
         int w = (int) mLayer.width();
         int h = (int) mLayer.height();
-        RectF areas = new RectF();
-        areas.left = mView.getPaddingLeft();
-        areas.top = mView.getPaddingTop();
-        areas.right = w - mView.getPaddingRight();
-        areas.bottom = h - mView.getPaddingBottom();
+        RectF areas = new RectF(0, 0, w, h);
         mClipPath.reset();
         if (mRoundAsCircle) {
-            float d = areas.width() >= areas.height() ? areas.height() : areas.width(); // 圆的直径
+            float d = Math.min(areas.width(), areas.height()); // 圆的直径
             float r = d / 2; // 圆的半径
-            PointF center = new PointF(w / 2, h / 2);
+            PointF center = new PointF(w / 2f, h / 2f);
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
                 // CW：顺时针，CCW：逆时针
                 mClipPath.addCircle(center.x, center.y, r, Path.Direction.CW);
@@ -130,7 +128,7 @@ public class SuperHelper {
 
     public void onClipDraw(Canvas canvas) {
         /* 处理填充 */
-        if (mFillBackgroundColor != -1) {
+        if (mFillBackgroundColor != 0) {
             Path path = new Path();
             path.addRect(mLayer, Path.Direction.CW);
             mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
@@ -155,6 +153,10 @@ public class SuperHelper {
         }
 
         /* 处理圆角 */
+        handleCorner(canvas);
+    }
+
+    public void handleCorner(Canvas canvas) {
         mPaint.setColor(Color.WHITE);
         mPaint.setStyle(Paint.Style.FILL);
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
@@ -167,5 +169,76 @@ public class SuperHelper {
             path.op(mClipPath, Path.Op.DIFFERENCE);
             canvas.drawPath(path, mPaint);
         }
+    }
+
+    public void setRoundAsCircle(boolean b) {
+        mRoundAsCircle = b;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setRoundCorner(int radius) {
+        mRadii[0] = radius;
+        mRadii[1] = radius;
+        mRadii[2] = radius;
+        mRadii[3] = radius;
+        mRadii[4] = radius;
+        mRadii[5] = radius;
+        mRadii[6] = radius;
+        mRadii[7] = radius;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setRoundCornerTopLeft(int radius) {
+        mRadii[0] = radius;
+        mRadii[1] = radius;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setRoundCornerTopRight(int radius) {
+        mRadii[2] = radius;
+        mRadii[3] = radius;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setRoundCornerBottomRight(int radius) {
+        mRadii[4] = radius;
+        mRadii[5] = radius;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setRoundCornerBottomLeft(int radius) {
+        mRadii[6] = radius;
+        mRadii[7] = radius;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setStrokeColor(int color) {
+        mStrokeColor = color;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setStrokeWidth(int width) {
+        mStrokeWidth = width;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setFillBackgroundColor(int color) {
+        mFillBackgroundColor = color;
+        mView.requestLayout();
+        mView.invalidate();
+    }
+
+    public void setClipBackground(boolean b) {
+        mClipBackground = b;
+        mView.requestLayout();
+        mView.invalidate();
     }
 }

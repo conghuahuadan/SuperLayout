@@ -22,44 +22,23 @@ import com.chhd.superlayout.R;
 
 import java.util.ArrayList;
 
-/**
- * A helper class to enable automatically resizing {@link TextView}`s {@code textSize} to fit
- * within its bounds.
- *
- * @attr ref R.styleable.AutoFitTextView_sizeToFit
- * @attr ref R.styleable.AutoFitTextView_minTextSize
- * @attr ref R.styleable.AutoFitTextView_precision
- */
+
 public class AutoFitHelper {
 
     private static final String TAG = "AutoFitTextHelper";
     private static final boolean SPEW = false;
 
-    // Minimum size of the text in pixels
     private static final int DEFAULT_MIN_TEXT_SIZE = 8; //sp
-    // How precise we want to be when reaching the target textWidth size
     private static final float DEFAULT_PRECISION = 0.5f;
 
-    /**
-     * Creates a new instance of {@code AutoFitHelper} that wraps a {@link TextView} and enables
-     * automatically sizing the text to fit.
-     */
     public static AutoFitHelper create(TextView view) {
         return create(view, null, 0);
     }
 
-    /**
-     * Creates a new instance of {@code AutoFitHelper} that wraps a {@link TextView} and enables
-     * automatically sizing the text to fit.
-     */
     public static AutoFitHelper create(TextView view, AttributeSet attrs) {
         return create(view, attrs, 0);
     }
 
-    /**
-     * Creates a new instance of {@code AutoFitHelper} that wraps a {@link TextView} and enables
-     * automatically sizing the text to fit.
-     */
     public static AutoFitHelper create(TextView view, AttributeSet attrs, int defStyle) {
         AutoFitHelper helper = new AutoFitHelper(view);
         boolean sizeToFit = true;
@@ -86,13 +65,9 @@ public class AutoFitHelper {
         return helper;
     }
 
-    /**
-     * Re-sizes the textSize of the TextView so that the text fits within the bounds of the View.
-     */
     private static void autofit(TextView view, TextPaint paint, float minTextSize, float maxTextSize,
                                 int maxLines, float precision) {
         if (maxLines <= 0 || maxLines == Integer.MAX_VALUE) {
-            // Don't auto-size since there's no limit on lines.
             return;
         }
 
@@ -136,9 +111,6 @@ public class AutoFitHelper {
         view.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
     }
 
-    /**
-     * Recursive binary search to find the best size for the text.
-     */
     private static float getAutoFitTextSize(CharSequence text, TextPaint paint,
                                             float targetWidth, int maxLines, float low, float high, float precision,
                                             DisplayMetrics displayMetrics) {
@@ -159,7 +131,6 @@ public class AutoFitHelper {
                 " target=" + targetWidth + " maxLines=" + maxLines + " lineCount=" + lineCount);
 
         if (lineCount > maxLines) {
-            // For the case that `text` has more newline characters than `maxLines`.
             if ((high - low) < precision) {
                 return low;
             }
@@ -217,12 +188,9 @@ public class AutoFitHelper {
         return maxLines;
     }
 
-    // Attributes
     private TextView mTextView;
     private TextPaint mPaint;
-    /**
-     * Original textSize of the TextView.
-     */
+
     private float mTextSize;
 
     private int mMaxLines;
@@ -254,10 +222,6 @@ public class AutoFitHelper {
         mPrecision = DEFAULT_PRECISION;
     }
 
-    /**
-     * Adds an {@link OnTextSizeChangeListener} to the list of those whose methods are called
-     * whenever the {@link TextView}'s {@code textSize} changes.
-     */
     public AutoFitHelper addOnTextSizeChangeListener(OnTextSizeChangeListener listener) {
         if (mListeners == null) {
             mListeners = new ArrayList<OnTextSizeChangeListener>();
@@ -266,10 +230,6 @@ public class AutoFitHelper {
         return this;
     }
 
-    /**
-     * Removes the specified {@link OnTextSizeChangeListener} from the list of those whose methods
-     * are called whenever the {@link TextView}'s {@code textSize} changes.
-     */
     public AutoFitHelper removeOnTextSizeChangeListener(OnTextSizeChangeListener listener) {
         if (mListeners != null) {
             mListeners.remove(listener);
@@ -277,20 +237,10 @@ public class AutoFitHelper {
         return this;
     }
 
-    /**
-     * Returns the amount of precision used to calculate the correct text size to fit within its
-     * bounds.
-     */
     public float getPrecision() {
         return mPrecision;
     }
 
-    /**
-     * Set the amount of precision used to calculate the correct text size to fit within its
-     * bounds. Lower precision is more precise and takes more time.
-     *
-     * @param precision The amount of precision.
-     */
     public AutoFitHelper setPrecision(float precision) {
         if (mPrecision != precision) {
             mPrecision = precision;
@@ -300,32 +250,14 @@ public class AutoFitHelper {
         return this;
     }
 
-    /**
-     * Returns the minimum size (in pixels) of the text.
-     */
     public float getMinTextSize() {
         return mMinTextSize;
     }
 
-    /**
-     * Set the minimum text size to the given value, interpreted as "scaled pixel" units. This size
-     * is adjusted based on the current density and user font size preference.
-     *
-     * @param size The scaled pixel size.
-     * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
-     */
     public AutoFitHelper setMinTextSize(float size) {
         return setMinTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
-    /**
-     * Set the minimum text size to a given unit and value. See TypedValue for the possible
-     * dimension units.
-     *
-     * @param unit The desired dimension unit.
-     * @param size The desired size in the given units.
-     * @attr ref me.grantland.R.styleable#AutofitTextView_minTextSize
-     */
     public AutoFitHelper setMinTextSize(int unit, float size) {
         Context context = mTextView.getContext();
         Resources r = Resources.getSystem();
@@ -346,32 +278,14 @@ public class AutoFitHelper {
         }
     }
 
-    /**
-     * Returns the maximum size (in pixels) of the text.
-     */
     public float getMaxTextSize() {
         return mMaxTextSize;
     }
 
-    /**
-     * Set the maximum text size to the given value, interpreted as "scaled pixel" units. This size
-     * is adjusted based on the current density and user font size preference.
-     *
-     * @param size The scaled pixel size.
-     * @attr ref android.R.styleable#TextView_textSize
-     */
     public AutoFitHelper setMaxTextSize(float size) {
         return setMaxTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
-    /**
-     * Set the maximum text size to a given unit and value. See TypedValue for the possible
-     * dimension units.
-     *
-     * @param unit The desired dimension unit.
-     * @param size The desired size in the given units.
-     * @attr ref android.R.styleable#TextView_textSize
-     */
     public AutoFitHelper setMaxTextSize(int unit, float size) {
         Context context = mTextView.getContext();
         Resources r = Resources.getSystem();
@@ -392,16 +306,10 @@ public class AutoFitHelper {
         }
     }
 
-    /**
-     * @see TextView#getMaxLines()
-     */
     public int getMaxLines() {
         return mMaxLines;
     }
 
-    /**
-     * @see TextView#setMaxLines(int)
-     */
     public AutoFitHelper setMaxLines(int lines) {
         if (mMaxLines != lines) {
             mMaxLines = lines;
@@ -411,16 +319,10 @@ public class AutoFitHelper {
         return this;
     }
 
-    /**
-     * Returns whether or not automatically resizing text is enabled.
-     */
     public boolean isEnabled() {
         return mEnabled;
     }
 
-    /**
-     * Set the enabled state of automatically resizing text.
-     */
     public AutoFitHelper setEnabled(boolean enabled) {
         if (mEnabled != enabled) {
             mEnabled = enabled;
@@ -440,33 +342,16 @@ public class AutoFitHelper {
         return this;
     }
 
-    /**
-     * Returns the original text size of the View.
-     *
-     * @see TextView#getTextSize()
-     */
     public float getTextSize() {
         return mTextSize;
     }
 
-    /**
-     * Set the original text size of the View.
-     *
-     * @see TextView#setTextSize(float)
-     */
     public void setTextSize(float size) {
         setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
-    /**
-     * Set the original text size of the View.
-     *
-     * @see TextView#setTextSize(int, float)
-     */
     public void setTextSize(int unit, float size) {
         if (mIsAutofitting) {
-            // We don't want to update the TextView's actual textSize while we're autofitting
-            // since it'd get set to the autofitTextSize
             return;
         }
         Context context = mTextView.getContext();
@@ -522,7 +407,6 @@ public class AutoFitHelper {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            // do nothing
         }
     }
 
@@ -534,15 +418,8 @@ public class AutoFitHelper {
         }
     }
 
-    /**
-     * When an object of a type is attached to an {@code AutoFitHelper}, its methods will be called
-     * when the {@code textSize} is changed.
-     */
     public interface OnTextSizeChangeListener {
-        /**
-         * This method is called to notify you that the size of the text has changed to
-         * {@code textSize} from {@code oldTextSize}.
-         */
-        public void onTextSizeChange(float textSize, float oldTextSize);
+
+        void onTextSizeChange(float textSize, float oldTextSize);
     }
 }

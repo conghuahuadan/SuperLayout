@@ -3,32 +3,30 @@ package com.chhd.superlayout;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.widget.RelativeLayout;
 
 import com.chhd.superlayout.util.SuperHelper;
 
 /**
- * SuperImageView
+ * SuperRelativeLayout
  *
  * @author 陈伟强 (2019/6/26)
  */
-public class SuperImageView extends android.support.v7.widget.AppCompatImageView {
-
-    private static final String TAG = SuperImageView.class.getSimpleName();
+public class SuperRelativeLayout extends RelativeLayout {
 
     private SuperHelper mHelper;
 
-    public SuperImageView(Context context) {
+    public SuperRelativeLayout(Context context) {
         super(context);
         init(context, null);
     }
 
-    public SuperImageView(Context context, AttributeSet attrs) {
+    public SuperRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public SuperImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SuperRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -45,10 +43,9 @@ public class SuperImageView extends android.support.v7.widget.AppCompatImageView
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        Log.i(TAG, "onDraw: ");
+    protected void dispatchDraw(Canvas canvas) {
         canvas.saveLayer(mHelper.mLayer, null, Canvas.ALL_SAVE_FLAG);
-        super.onDraw(canvas);
+        super.dispatchDraw(canvas);
         mHelper.onClipDraw(canvas);
         canvas.restore();
     }
@@ -70,7 +67,7 @@ public class SuperImageView extends android.support.v7.widget.AppCompatImageView
     }
 
     public void setStrokeColor(int color) {
-        mHelper.setStrokeColor(color);
+       mHelper.setStrokeColor(color);
     }
 
     public void setFillBackgroundColor(int color) {
