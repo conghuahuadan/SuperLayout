@@ -13,7 +13,6 @@ import android.text.method.SingleLineTransformationMethod;
 import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -126,9 +125,6 @@ public class AutoFitHelper {
                     1.0f, 0.0f, true);
             lineCount = layout.getLineCount();
         }
-
-        if (SPEW) Log.d(TAG, "low=" + low + " high=" + high + " mid=" + mid +
-                " target=" + targetWidth + " maxLines=" + maxLines + " lineCount=" + lineCount);
 
         if (lineCount > maxLines) {
             if ((high - low) < precision) {

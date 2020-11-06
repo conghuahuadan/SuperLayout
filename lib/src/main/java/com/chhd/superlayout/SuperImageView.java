@@ -3,7 +3,6 @@ package com.chhd.superlayout;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.chhd.superlayout.util.SuperHelper;
 
@@ -46,7 +45,6 @@ public class SuperImageView extends android.support.v7.widget.AppCompatImageView
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.i(TAG, "onDraw: ");
         canvas.saveLayer(mHelper.mLayer, null, Canvas.ALL_SAVE_FLAG);
         super.onDraw(canvas);
         mHelper.onClipDraw(canvas);
