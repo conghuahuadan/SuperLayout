@@ -73,7 +73,7 @@ public class SuperHelper {
         } else {
             mFillBackgroundColor = 0;
         }
-        mClipBackground = ta.getBoolean(R.styleable.SuperAttrs_clip_background, false);
+        mClipBackground = ta.getBoolean(R.styleable.SuperAttrs_clip_background, true);
 
         ta.recycle();
 
