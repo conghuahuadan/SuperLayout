@@ -2,30 +2,33 @@ package com.chhd.superlayout;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
 import com.chhd.superlayout.util.SuperHelper;
 
 /**
- * SuperLinearLayout
- *
- * 陈伟强 (2020/4/30)
+ * 作者：陈伟强
+ * 日期：2021-02-25, 星期四
+ * 描述：
  */
-public class SuperLinearLayout extends LinearLayout {
+public class SuperEditText extends AppCompatEditText {
+
+    private static final String TAG = SuperTextView.class.getSimpleName();
 
     private SuperHelper mHelper;
 
-    public SuperLinearLayout(Context context) {
-        this(context,null);
+    public SuperEditText(Context context) {
+        super(context);
+        init(context, null);
     }
 
-    public SuperLinearLayout(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+    public SuperEditText(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, attrs);
     }
 
-    public SuperLinearLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SuperEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -42,11 +45,11 @@ public class SuperLinearLayout extends LinearLayout {
     }
 
     @Override
-    public void dispatchDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         canvas.saveLayer(mHelper.mLayer, null, Canvas.ALL_SAVE_FLAG);
-        super.dispatchDraw(canvas);
         mHelper.onClipDraw(canvas);
         canvas.restore();
+        super.onDraw(canvas);
     }
 
     @Override
@@ -63,13 +66,5 @@ public class SuperLinearLayout extends LinearLayout {
 
     public SuperHelper getSuperHelper() {
         return mHelper;
-    }
-
-    public void setStrokeColor(int color) {
-        mHelper.setStrokeColor(color);
-    }
-
-    public void setFillBackgroundColor(int color) {
-        mHelper.setFillBackgroundColor(color);
     }
 }

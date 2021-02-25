@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
 import com.chhd.superlayout.util.AutoFitHelper;
@@ -14,7 +15,7 @@ import com.chhd.superlayout.util.SuperHelper;
  *
  * @author 陈伟强 (2019/6/26)
  */
-public class SuperTextView extends android.support.v7.widget.AppCompatTextView {
+public class SuperTextView extends AppCompatTextView {
 
     private static final String TAG = SuperTextView.class.getSimpleName();
 

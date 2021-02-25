@@ -17,13 +17,11 @@ public class SuperRelativeLayout extends RelativeLayout {
     private SuperHelper mHelper;
 
     public SuperRelativeLayout(Context context) {
-        super(context);
-        init(context, null);
+        this(context, null);
     }
 
     public SuperRelativeLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
+        this(context, attrs, 0);
     }
 
     public SuperRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -67,7 +65,7 @@ public class SuperRelativeLayout extends RelativeLayout {
     }
 
     public void setStrokeColor(int color) {
-       mHelper.setStrokeColor(color);
+        mHelper.setStrokeColor(color);
     }
 
     public void setFillBackgroundColor(int color) {

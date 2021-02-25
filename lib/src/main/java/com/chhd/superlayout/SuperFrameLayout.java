@@ -2,31 +2,28 @@ package com.chhd.superlayout;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
 import com.chhd.superlayout.util.SuperHelper;
 
-/**
- * SuperLinearLayout
- *
- * 陈伟强 (2020/4/30)
- */
-public class SuperLinearLayout extends LinearLayout {
+public class SuperFrameLayout extends FrameLayout {
 
     private SuperHelper mHelper;
 
-    public SuperLinearLayout(Context context) {
-        this(context,null);
+    public SuperFrameLayout(@NonNull Context context) {
+        this(context, null);
     }
 
-    public SuperLinearLayout(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+    public SuperFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    public SuperLinearLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SuperFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         init(context, attrs);
     }
 
@@ -42,7 +39,7 @@ public class SuperLinearLayout extends LinearLayout {
     }
 
     @Override
-    public void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(Canvas canvas) {
         canvas.saveLayer(mHelper.mLayer, null, Canvas.ALL_SAVE_FLAG);
         super.dispatchDraw(canvas);
         mHelper.onClipDraw(canvas);
@@ -63,13 +60,5 @@ public class SuperLinearLayout extends LinearLayout {
 
     public SuperHelper getSuperHelper() {
         return mHelper;
-    }
-
-    public void setStrokeColor(int color) {
-        mHelper.setStrokeColor(color);
-    }
-
-    public void setFillBackgroundColor(int color) {
-        mHelper.setFillBackgroundColor(color);
     }
 }
