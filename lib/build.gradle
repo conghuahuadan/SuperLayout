@@ -28,7 +28,7 @@ publish {
     userOrg = 'conghuahuadan'
     groupId = 'com.conghuahuadan'
     artifactId = 'superlayout'
-    publishVersion = '1.0.8'
+    publishVersion = '1.0.9'
     desc = 'superlayout'
     website = ''
 }
