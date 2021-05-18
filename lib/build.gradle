@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 28
@@ -24,11 +24,19 @@ dependencies {
     compileOnly 'com.android.support.constraint:constraint-layout:1.1.3'
 }
 
-publish {
-    userOrg = 'conghuahuadan'
-    groupId = 'com.conghuahuadan'
-    artifactId = 'superlayout'
-    publishVersion = '1.0.9'
-    desc = 'superlayout'
-    website = ''
+//publish {
+//    userOrg = 'conghuahuadan'
+//    groupId = 'com.conghuahuadan'
+//    artifactId = 'superlayout'
+//    publishVersion = '1.0.9'
+//    desc = 'superlayout'
+//    website = ''
+//}
+
+ext {
+    PUBLISH_GROUP_ID = "io.github.conghuahuadan"      // 项目包名
+    PUBLISH_ARTIFACT_ID = 'superlayout'      // 项目名
+    PUBLISH_VERSION = '1.0.9'                   // 版本号
 }
+
+apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
