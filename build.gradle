@@ -3,6 +3,8 @@
 buildscript {
     repositories {
         google()
+        mavenCentral()
+        maven { url 'https://repo1.maven.org/maven2/' }
         jcenter()
         
     }
@@ -17,8 +19,10 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
+        maven { url 'https://repo1.maven.org/maven2/' }
         jcenter()
-        maven { url 'https://dl.bintray.com/conghuahuadan/maven' }
+//        maven { url 'https://dl.bintray.com/conghuahuadan/maven' }
         maven { url "http://lib.gcssloop.com:8081/repository/gcssloop-central/" }
 
     }

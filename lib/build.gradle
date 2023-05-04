@@ -34,9 +34,9 @@ dependencies {
 //}
 
 ext {
-    PUBLISH_GROUP_ID = "io.github.conghuahuadan"      // 项目包名
+    PUBLISH_GROUP_ID = "com.conghuahuadan"      // 项目包名
     PUBLISH_ARTIFACT_ID = 'superlayout'      // 项目名
-    PUBLISH_VERSION = '1.0.9'                   // 版本号
+    PUBLISH_VERSION = '1.1.0'                   // 版本号
 }
 
 apply from: "${rootProject.projectDir}/publish-mavencentral.gradle"
